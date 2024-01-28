@@ -43,6 +43,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
     }
 
     public static void registerTags(BlockRegistry registry) {
+        final TagKey<Block> SWORD_EFFICIENT = net.minecraft.tags.BlockTags.create(new ResourceLocation("sword_efficient"));
         registry.register(Blocks.AMETHYST_BLOCK, ModBlocks.AMETHYST_BLOCK, "amethyst_block", ALCHEMY_BENCH_TAG, BlockTags.MINEABLE_WITH_PICKAXE);
         registry.register(Blocks.COAL_BLOCK, ModBlocks.COAL_BLOCK, "coal_block", ALCHEMY_BENCH_TAG, BlockTags.MINEABLE_WITH_PICKAXE);
         registry.register(Blocks.CRYING_OBSIDIAN, ModBlocks.CRYING_OBSIDIAN, "crying_obsidian", ALCHEMY_BENCH_TAG, BlockTags.MINEABLE_WITH_PICKAXE);
@@ -81,8 +82,8 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         registry.register(Blocks.BONE_BLOCK, ModBlocks.BONE_BLOCK, "bone_block", BOTANIST_WORKBENCH_TAG, BlockTags.MINEABLE_WITH_PICKAXE);
         registry.register(Blocks.BROWN_MUSHROOM_BLOCK, ModBlocks.BROWN_MUSHROOM_BLOCK, "brown_mushroom_block", BOTANIST_WORKBENCH_TAG, BlockTags.MINEABLE_WITH_AXE);
         registry.register(Blocks.RED_MUSHROOM_BLOCK, ModBlocks.RED_MUSHROOM_BLOCK, "red_mushroom_block", BOTANIST_WORKBENCH_TAG, BlockTags.MINEABLE_WITH_AXE);
-        registry.register(Blocks.BROWN_MUSHROOM, ModBlocks.BROWN_MUSHROOM, "brown_mushroom", BOTANIST_WORKBENCH_TAG, BlockTags.SWORD_EFFICIENT);
-        registry.register(Blocks.RED_MUSHROOM, ModBlocks.RED_MUSHROOM, "red_mushroom", BOTANIST_WORKBENCH_TAG, BlockTags.SWORD_EFFICIENT);
+        registry.register(Blocks.BROWN_MUSHROOM, ModBlocks.BROWN_MUSHROOM, "brown_mushroom", BOTANIST_WORKBENCH_TAG, SWORD_EFFICIENT);
+        registry.register(Blocks.RED_MUSHROOM, ModBlocks.RED_MUSHROOM, "red_mushroom", BOTANIST_WORKBENCH_TAG, SWORD_EFFICIENT);
         registry.register(Blocks.COBWEB, ModBlocks.COBWEB, "cobweb", BOTANIST_WORKBENCH_TAG);
         registry.register(Blocks.MUSHROOM_STEM, ModBlocks.MUSHROOM_STEM, "mushroom_stem", BOTANIST_WORKBENCH_TAG, BlockTags.MINEABLE_WITH_AXE);
         registry.register(Blocks.GRAVEL, ModBlocks.GRAVEL, "gravel", BOTANIST_WORKBENCH_TAG, BlockTags.MINEABLE_WITH_SHOVEL);
@@ -92,19 +93,19 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         registry.register(Blocks.SHROOMLIGHT, ModBlocks.SHROOMLIGHT, "shroomlight", BOTANIST_WORKBENCH_TAG, BlockTags.MINEABLE_WITH_HOE);
         registry.register(Blocks.SAND, ModBlocks.SAND, "sand", BOTANIST_WORKBENCH_TAG, BlockTags.MINEABLE_WITH_SHOVEL);
         registry.register(Blocks.SOUL_SAND, ModBlocks.SOUL_SAND, "soul_sand", BOTANIST_WORKBENCH_TAG, BlockTags.MINEABLE_WITH_SHOVEL);
-        registry.register(Blocks.CRIMSON_ROOTS, ModBlocks.CRIMSON_ROOTS, "crimson_roots", BOTANIST_WORKBENCH_TAG, BlockTags.SWORD_EFFICIENT);
-        registry.register(Blocks.WARPED_ROOTS, ModBlocks.WARPED_ROOTS, "warped_roots", BOTANIST_WORKBENCH_TAG, BlockTags.SWORD_EFFICIENT);
+        registry.register(Blocks.CRIMSON_ROOTS, ModBlocks.CRIMSON_ROOTS, "crimson_roots", BOTANIST_WORKBENCH_TAG, SWORD_EFFICIENT);
+        registry.register(Blocks.WARPED_ROOTS, ModBlocks.WARPED_ROOTS, "warped_roots", BOTANIST_WORKBENCH_TAG, SWORD_EFFICIENT);
         registry.register(Blocks.DRIED_KELP_BLOCK, ModBlocks.DRIED_KELP_BLOCK, "dried_kelp_block", BOTANIST_WORKBENCH_TAG, BlockTags.MINEABLE_WITH_HOE);
-        registry.register(Blocks.LILY_PAD, ModBlocks.LILY_PAD, "lily_pad", BOTANIST_WORKBENCH_TAG, BlockTags.SWORD_EFFICIENT);
-        registry.register(Blocks.NETHER_SPROUTS, ModBlocks.NETHER_SPROUTS, "nether_sprouts", BOTANIST_WORKBENCH_TAG, BlockTags.SWORD_EFFICIENT);
+        registry.register(Blocks.LILY_PAD, ModBlocks.LILY_PAD, "lily_pad", BOTANIST_WORKBENCH_TAG, SWORD_EFFICIENT);
+        registry.register(Blocks.NETHER_SPROUTS, ModBlocks.NETHER_SPROUTS, "nether_sprouts", BOTANIST_WORKBENCH_TAG, SWORD_EFFICIENT);
         registry.register(Blocks.NETHER_WART_BLOCK, ModBlocks.NETHER_WART_BLOCK, "nether_wart_block", BOTANIST_WORKBENCH_TAG, BlockTags.MINEABLE_WITH_HOE);
         registry.register(Blocks.PUMPKIN, ModBlocks.PUMPKIN, "pumpkin", BOTANIST_WORKBENCH_TAG, BlockTags.MINEABLE_WITH_AXE);
         registry.register(Blocks.CARVED_PUMPKIN, ModBlocks.CARVED_PUMPKIN, "carved_pumpkin", BOTANIST_WORKBENCH_TAG, BlockTags.MINEABLE_WITH_AXE);
         registry.register(Blocks.JACK_O_LANTERN, ModBlocks.JACK_O_LANTERN, "jack_o_lantern", BOTANIST_WORKBENCH_TAG, BlockTags.MINEABLE_WITH_AXE);
-        registry.register(Blocks.VINE, ModBlocks.VINE, "vine", BOTANIST_WORKBENCH_TAG, BlockTags.SWORD_EFFICIENT);
+        registry.register(Blocks.VINE, ModBlocks.VINE, "vine", BOTANIST_WORKBENCH_TAG, SWORD_EFFICIENT);
         registry.register(Blocks.WARPED_WART_BLOCK, ModBlocks.WARPED_WART_BLOCK, "warped_wart_block", BOTANIST_WORKBENCH_TAG, BlockTags.MINEABLE_WITH_HOE);
-        registry.register(Blocks.CRIMSON_FUNGUS, ModBlocks.CRIMSON_FUNGUS, "crimson_fungus", BOTANIST_WORKBENCH_TAG, BlockTags.SWORD_EFFICIENT);
-        registry.register(Blocks.WARPED_FUNGUS, ModBlocks.WARPED_FUNGUS, "warped_fungus", BOTANIST_WORKBENCH_TAG, BlockTags.SWORD_EFFICIENT);
+        registry.register(Blocks.CRIMSON_FUNGUS, ModBlocks.CRIMSON_FUNGUS, "crimson_fungus", BOTANIST_WORKBENCH_TAG, SWORD_EFFICIENT);
+        registry.register(Blocks.WARPED_FUNGUS, ModBlocks.WARPED_FUNGUS, "warped_fungus", BOTANIST_WORKBENCH_TAG, SWORD_EFFICIENT);
 
         registry.register(Blocks.ACACIA_PLANKS, ModBlocks.ACACIA_PLANKS, "acacia_planks", CARPENTERS_TABLE_TAG, BlockTags.MINEABLE_WITH_AXE);
         registry.register(Blocks.BIRCH_PLANKS, ModBlocks.BIRCH_PLANKS, "birch_planks", CARPENTERS_TABLE_TAG, BlockTags.MINEABLE_WITH_AXE);
@@ -429,7 +430,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         createVanillaSet(ModBlocks.WARPED_PLANKS, BlockTags.PLANKS);
         createVanillaSet(ModBlocks.CHERRY_PLANKS, BlockTags.PLANKS);
         createVanillaSet(ModBlocks.BAMBOO_PLANKS, BlockTags.PLANKS);
-        createVanillaSet(ModBlocks.VINE, BlockTags.REPLACEABLE_BY_TREES);
+        createVanillaSet(ModBlocks.VINE, BlockTags.REPLACEABLE_PLANTS);
         createVanillaSet(ModBlocks.SAND, BlockTags.SAND);
         createVanillaSet(ModBlocks.SNOW_BLOCK, BlockTags.SNOW);
         createVanillaSet(ModBlocks.SOUL_SAND, BlockTags.SOUL_FIRE_BASE_BLOCKS);
@@ -467,7 +468,6 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         createVanillaSet(ModBlocks.WHITE_WOOL, BlockTags.WOOL);
         createVanillaSet(ModBlocks.YELLOW_WOOL, BlockTags.WOOL);
         createVanillaSet(ModBlocks.SOUL_SAND, BlockTags.SOUL_SPEED_BLOCKS);
-        createVanillaSet(ModBlocks.BOOKSHELF, BlockTags.ENCHANTMENT_POWER_PROVIDER);
     }
 
     private void createVanillaSet(ResourcefulRegistry<Block> registry, TagKey<Block> tag) {

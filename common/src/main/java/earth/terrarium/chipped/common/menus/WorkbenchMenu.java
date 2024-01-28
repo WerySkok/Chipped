@@ -37,14 +37,14 @@ public class WorkbenchMenu extends AbstractContainerMenu {
     private final List<ItemStack> results = new ArrayList<>();
 
     public WorkbenchMenu(int containerId, Inventory inventory, FriendlyByteBuf buf) {
-        this(containerId, inventory, getRecipeFromBuf(inventory.player.level(), buf));
+        this(containerId, inventory, getRecipeFromBuf(inventory.player.level, buf));
     }
 
     public WorkbenchMenu(int containerId, Inventory inventory, RecipeType<ChippedRecipe> recipeType) {
         super(ModMenuTypes.WORKBENCH.get(), containerId);
         this.inventory = inventory;
         this.player = inventory.player;
-        this.level = player.level();
+        this.level = player.level;
         this.recipeType = recipeType;
         addPlayerInvSlots();
     }
@@ -102,7 +102,7 @@ public class WorkbenchMenu extends AbstractContainerMenu {
         results.clear();
         if (selectedRecipe != null) {
             selectedRecipe.getResults(container).forEach(result -> {
-                if (filter == null || Util.isBlank(filter)) {
+                if (filter == null || filter.strip() != "") {
                     results.add(result);
                 } else if (result.getDisplayName().getString().toLowerCase(Locale.ROOT).contains(filter.toLowerCase(Locale.ROOT))) {
                     results.add(result);
@@ -116,7 +116,7 @@ public class WorkbenchMenu extends AbstractContainerMenu {
 
         boolean canCraft = false;
         for (var result : results) {
-            if (ItemStack.isSameItem(result, stack)) {
+            if (result.sameItem(stack)) {
                 canCraft = true;
                 break;
             }
@@ -126,7 +126,7 @@ public class WorkbenchMenu extends AbstractContainerMenu {
         inventory.setItem(selectedStackId, stack.copyWithCount(inventory.getItem(selectedStackId).getCount()));
         if (replaceAll) {
             for (int i = 0; i < inventory.getContainerSize(); i++) {
-                if (ItemStack.isSameItem(inventory.getItem(i), selectedStack)) {
+                if (inventory.getItem(i).sameItem(selectedStack)) {
                     inventory.setItem(i, stack.copyWithCount(inventory.getItem(i).getCount()));
                 }
             }

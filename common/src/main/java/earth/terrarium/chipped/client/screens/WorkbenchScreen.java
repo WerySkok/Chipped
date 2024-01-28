@@ -7,7 +7,6 @@ import earth.terrarium.chipped.Chipped;
 import earth.terrarium.chipped.common.menus.WorkbenchMenu;
 import earth.terrarium.chipped.common.network.NetworkHandler;
 import earth.terrarium.chipped.common.network.ServerboundCraftPacket;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.Tooltip;
@@ -140,45 +139,45 @@ public class WorkbenchScreen extends AbstractContainerCursorScreen<WorkbenchMenu
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        renderBackground(graphics);
-        super.render(graphics, mouseX, mouseY, partialTick);
+    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+        renderBackground(poseStack);
+        super.render(poseStack, mouseX, mouseY, partialTick);
 
         int left = (width - imageWidth) / 2;
         int top = (height - imageHeight) / 2;
         grid.setY(top + 41 - (int) scrollAmount);
-        try (var ignored = RenderUtils.createScissorBox(Objects.requireNonNull(minecraft), graphics.pose(), left + 84, top + 40, 163, 101)) {
+        try (var ignored = RenderUtils.createScissorBox(Objects.requireNonNull(minecraft), poseStack, left + 84, top + 40, 163, 101)) {
             for (var widget : slotWidgets) {
-                widget.renderWidget(graphics, mouseX, mouseY, partialTick);
+                widget.renderWidget(poseStack, mouseX, mouseY, partialTick);
             }
         }
 
         for (var widget : slotWidgets) {
-            widget.renderTooltip(graphics, font, mouseX, mouseY);
+            widget.renderTooltip(poseStack, font, mouseX, mouseY);
         }
 
-        renderTooltip(graphics, mouseX, mouseY);
+        renderTooltip(poseStack, mouseX, mouseY);
     }
 
     @Override
-    protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
+    protected void renderBg(PoseStack poseStack, float partialTick, int mouseX, int mouseY) {
         int left = (width - imageWidth) / 2;
         int top = (height - imageHeight) / 2;
-        graphics.blit(TEXTURE, left, top, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
-        graphics.drawString(font, PREVIEW_TEXT, left + 11, top + 14, 0x404040, false);
-        graphics.drawCenteredString(font, CRAFT_TEXT, left + 45, top + 106, 0x404040);
+        this.blit(poseStack, left, top, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
+        this.drawString(poseStack, font, PREVIEW_TEXT, left + 11, top + 14, 0x404040);
+        this.drawCenteredString(poseStack, font, CRAFT_TEXT, left + 45, top + 106, 0x404040);
 
         var stack = menu.chosenStack();
         if (stack.isEmpty()) return;
-        renderBlock(graphics, stack);
+        renderBlock(poseStack, stack);
 
         var selectedStack = menu.selectedStack();
         if (selectedStack.isEmpty()) return;
         for (var slot : menu.slots) {
-            if (selectedStack.equals(slot.getItem()) || (ItemStack.isSameItem(selectedStack, slot.getItem()) && hasShiftDown())) {
-                graphics.renderOutline(slot.x + left - 1, slot.y + 6, 18, 18, YELLOW);
-            } else if (ItemStack.isSameItem(selectedStack, slot.getItem())) {
-                graphics.renderOutline(slot.x + left - 1, slot.y + 6, 18, 18, BLUE);
+            if (selectedStack.equals(slot.getItem()) || (selectedStack.sameItem(slot.getItem()) && hasShiftDown())) {
+                this.renderOutline(poseStack,slot.x + left - 1, slot.y + 6, 18, 18, YELLOW);
+            } else if (selectedStack.sameItem(slot.getItem())) {
+                renderOutline(poseStack,slot.x + left - 1, slot.y + 6, 18, 18, BLUE);
             }
         }
     }
@@ -236,13 +235,12 @@ public class WorkbenchScreen extends AbstractContainerCursorScreen<WorkbenchMenu
         scrollAmount = Mth.clamp(amount, 0, rows * 18 - 100);
     }
 
-    private void renderBlock(GuiGraphics graphics, ItemStack stack) {
+    private void renderBlock(PoseStack poseStack, ItemStack stack) {
         int left = (width - imageWidth) / 2;
         int top = (height - imageHeight) / 2;
 
         BlockState state = Block.byItem(stack.getItem()).defaultBlockState();
         if (state.isAir()) return;
-        PoseStack poseStack = graphics.pose();
 
         switch (mode) {
             case SINGLE_BLOCK -> renderSingleBlock(poseStack, state, left, top);

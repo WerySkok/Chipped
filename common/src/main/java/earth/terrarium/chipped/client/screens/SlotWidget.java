@@ -1,10 +1,10 @@
 package earth.terrarium.chipped.client.screens;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import earth.terrarium.chipped.Chipped;
 import earth.terrarium.chipped.common.menus.WorkbenchMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.Screen;
@@ -12,6 +12,8 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+
+import static com.teamresourceful.resourcefullib.client.utils.RenderUtils.renderItem;
 
 public class SlotWidget extends AbstractWidget {
     public static final ResourceLocation TEXTURE = new ResourceLocation(Chipped.MOD_ID, "textures/gui/sprites/slot.png");
@@ -30,19 +32,19 @@ public class SlotWidget extends AbstractWidget {
     }
 
     @Override
-    protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        graphics.blit(TEXTURE, getX(), getY(), 0, 0, 18, 18, 18, 18);
+    public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+        this.blit(poseStack, getX(), getY(), 0, 0, 18, 18, 18, 18);
 
-        graphics.renderItem(stack, getX() + 1, getY() + 1);
+        renderItem(poseStack, stack, getX() + 1, getY() + 1);
         if (isMouseOver(mouseX, mouseY)) {
-            AbstractContainerScreen.renderSlotHighlight(graphics, getX() + 1, getY() + 1, 0);
+            AbstractContainerScreen.renderSlotHighlight(poseStack, getX() + 1, getY() + 1, 0);
         }
     }
 
-    public void renderTooltip(GuiGraphics graphics, Font font, int mouseX, int mouseY) {
+    public void renderTooltip(PoseStack poseStack, Font font, int mouseX, int mouseY) {
         if (isMouseOver(mouseX, mouseY)) {
             if (!stack.isEmpty()) {
-                graphics.renderTooltip(font, Screen.getTooltipFromItem(Minecraft.getInstance(), stack), stack.getTooltipImage(), mouseX, mouseY);
+                this.renderTooltip(poseStack,font, mouseX, mouseY);
             }
         }
     }

@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -32,15 +32,15 @@ public abstract class BlockBehaviourMixin {
         ),
         cancellable = true
     )
-    private void chipped$getDrops(BlockState state, LootParams.Builder builder, CallbackInfoReturnable<List<ItemStack>> cir) {
+    private void chipped$getDrops(BlockState state, LootContext.Builder builder, CallbackInfoReturnable<List<ItemStack>> cir) {
         //noinspection ConstantValue
         if (((Object) this) instanceof Block block) {
             final var blockId = BuiltInRegistries.BLOCK.getKey(block);
             if (blockId.getNamespace().equals(Chipped.MOD_ID)) {
                 final var id = new ResourceLocation(blockId.getNamespace(), "blocks/" + blockId.getPath());
-                final var table = builder.getLevel().getServer().getLootData().getLootTable(id);
+                final var table = builder.getLevel().getServer().getLootTables().get(id);
                 if (table != LootTable.EMPTY) {
-                    final LootParams context = builder.withParameter(LootContextParams.BLOCK_STATE, state).create(LootContextParamSets.BLOCK);
+                    final LootContext context = builder.withParameter(LootContextParams.BLOCK_STATE, state).create(LootContextParamSets.BLOCK);
                     cir.setReturnValue(table.getRandomItems(context));
                 } else if (!state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF) || state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
                     cir.setReturnValue(List.of(new ItemStack(block)));
